@@ -18,7 +18,8 @@ var query = {
   ],
   "orderBys": [
     {"dimension": {"orderType": "ALPHANUMERIC", "dimensionName": "date"}, "desc": true}
-  ]
+  ],
+  "limit": 1000 // Row limit 
 };
 
 function runReport() {
