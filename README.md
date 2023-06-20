@@ -8,7 +8,10 @@ Before running this script, make sure you have the following:
 
 - Access to a Google Analytics account with the desired property ID.
 - Access to a Google Sheet where the data will be stored.
-- The Google Analytics Data API enabled in the Google Cloud Console for your project.
+- The Google Analytics Data API enabled in the Google Sheet for your project.
+
+<img width="288" alt="Screen Shot 2023-06-20 at 16 51 40" src="https://github.com/analyticahouse-lab/ga4-app-script/assets/34893128/5e64fba3-d721-4036-b437-fc12513e317c">
+
 
 ## Installation
 
