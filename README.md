@@ -41,6 +41,13 @@ The `query` object in the code determines the dimensions, metrics, and date rang
 
 For more information about the available dimensions, metrics, and other parameters, refer to the [Google Analytics Data API documentation](https://developers.google.com/analytics/devguides/reporting/data/v1/rest).
 
+## API List
+- https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
+
+## UA To GA4 Mapping
+- https://developers.google.com/analytics/devguides/migration/api/reporting-ua-to-ga4-dims-mets
+
+
 ## Error Handling
 
 If the script encounters any errors, they will be logged in the script editor's log. You can access the log by going to "View" > "Logs" or pressing `Ctrl + Enter`. Review the logs to troubleshoot any issues.
