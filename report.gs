@@ -1,28 +1,24 @@
-var propertyId = '<Property ID>';
-var sheetName = "<Sheet name>";
+var propertyId = '261656317';
+var sourceSheetName = "Sheet1"; // Example -> Sheet1
+var targetSheetId = ''; // Example -> 1iYBvGyZeMT7oJOtuSVELVcCc5Xy0vj87zWb_1sga
+
 var query = {
   "dimensions": [
-    {"name": "date"},
-    {"name": "sessionSourceMedium"},
-    {"name": "sessionCampaignName"},
-    {"name": "eventName"}
+    { "name": "date" }
   ],
   "metrics": [
-    {"name": "eventCount"},
-    {"name": "purchaseRevenue"},
-    {"name": "sessions"},
-    {"name": "advertiserAdCost"}
+    { "name": "sessions" },
   ],
   "dateRanges": [
-    {"startDate": "2021-01-01", "endDate": "today"}
+    { "startDate": "2023-06-01", "endDate": "today" }
   ],
   "orderBys": [
-    {"dimension": {"orderType": "ALPHANUMERIC", "dimensionName": "date"}, "desc": true}
+    { "dimension": { "orderType": "ALPHANUMERIC", "dimensionName": "date" }, "desc": true }
   ],
-  "limit": 1000 // Row limit 
+  "limit": 1000
 };
 
-function runReport() {
+function runReportGA() {
   try {
     var requestData = query;
     const request = AnalyticsData.newRunReportRequest();
@@ -42,9 +38,9 @@ function runReport() {
     }
 
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = spreadsheet.getSheetByName(sheetName);
+    var sheet = spreadsheet.getSheetByName(sourceSheetName);
     if (sheet == null) {
-      sheet = spreadsheet.insertSheet(sheetName);
+      sheet = spreadsheet.insertSheet(sourceSheetName);
     } else {
       sheet.clearContents();
     }
@@ -71,7 +67,21 @@ function runReport() {
     sheet.getRange(2, 1, report.rows.length, headers.length)
       .setValues(rows);
 
-    Logger.log('Report spreadsheet created: %s', spreadsheet.getUrl());
+    // Get the target spreadsheet by ID
+    var targetSpreadsheet = SpreadsheetApp.openById(targetSheetId);
+    var targetSheet = targetSpreadsheet.getSheetByName(sourceSheetName);
+    if (targetSheet == null) {
+      targetSheet = targetSpreadsheet.insertSheet(sourceSheetName);
+    } else {
+      targetSheet.clearContents();
+    }
+
+    // Write the data to the target sheet
+    targetSheet.appendRow(headers);
+    targetSheet.getRange(2, 1, report.rows.length, headers.length)
+      .setValues(rows);
+
+    Logger.log('Data has been written to the target sheet: %s', targetSpreadsheet.getUrl());
   } catch (e) {
     Logger.log('Failed with error: %s', e.error);
   }
