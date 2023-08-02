@@ -4,18 +4,35 @@ var targetSheetId = ''; // Example -> 1iYBvGyZeMT7oJOtuSVELVcCc5Xy0vj87zWb_1sga
 
 var query = {
   "dimensions": [
-    { "name": "date" }
+    { "name": "date" },
+    { "name": "sessionSource" }
   ],
   "metrics": [
-    { "name": "sessions" },
+    { "name": "sessions" }
   ],
   "dateRanges": [
-    { "startDate": "2023-06-01", "endDate": "today" }
+    {
+      "startDate": "2023-06-01",
+      "endDate": "today"
+    },
+    //   {
+    //   "startDate": "2022-06-01",
+    //   "endDate": "2022-06-30"
+    // }
+    // ---> compare multiple data ranges
   ],
   "orderBys": [
     { "dimension": { "orderType": "ALPHANUMERIC", "dimensionName": "date" }, "desc": true }
   ],
-  "limit": 1000
+  "limit": 1000,
+  // "dimensionFilter": {
+  //   "filter": {
+  //     "fieldName": "sessionSource",
+  //     "inListFilter": {
+  //       "value": "organic"
+  //     }
+  //   }
+  // },
 };
 
 function runReportGA() {
@@ -67,6 +84,7 @@ function runReportGA() {
     sheet.getRange(2, 1, report.rows.length, headers.length)
       .setValues(rows);
 
+    // Get the target spreadsheet by ID
     var targetSpreadsheet = SpreadsheetApp.openById(targetSheetId);
     var targetSheet = targetSpreadsheet.getSheetByName(sourceSheetName);
     if (targetSheet == null) {
@@ -75,6 +93,7 @@ function runReportGA() {
       targetSheet.clearContents();
     }
 
+    // Write the data to the target sheet
     targetSheet.appendRow(headers);
     targetSheet.getRange(2, 1, report.rows.length, headers.length)
       .setValues(rows);
