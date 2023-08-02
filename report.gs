@@ -67,7 +67,6 @@ function runReportGA() {
     sheet.getRange(2, 1, report.rows.length, headers.length)
       .setValues(rows);
 
-    // Get the target spreadsheet by ID
     var targetSpreadsheet = SpreadsheetApp.openById(targetSheetId);
     var targetSheet = targetSpreadsheet.getSheetByName(sourceSheetName);
     if (targetSheet == null) {
@@ -76,7 +75,6 @@ function runReportGA() {
       targetSheet.clearContents();
     }
 
-    // Write the data to the target sheet
     targetSheet.appendRow(headers);
     targetSheet.getRange(2, 1, report.rows.length, headers.length)
       .setValues(rows);
